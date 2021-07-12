@@ -43,10 +43,12 @@ function fromEvent<T extends keyof HTMLElementEventMap>(target: HTMLElement, eve
     // Add the event handler to the target
     target.addEventListener(eventName, handler);
 
-    return () => {
-      // Detach the event handler from the target
-      target.removeEventListener(eventName, handler);
-    };
+    return {
+      unsubscribe(){
+        // Detach the event handler from the target
+        target.removeEventListener(eventName, handler);
+      }        
+    }
   });
 }
 
